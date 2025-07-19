@@ -1,0 +1,19 @@
+ # Task-3-Penetration-Toolkit/
+import socket
+
+def scan_port(ip, port):
+    try:
+        sock = socket.socket()
+        sock.settimeout(1)
+        sock.connect((ip, port))
+        print(f"[+] Port {port} is OPEN")
+        sock.close()
+    except:
+        pass
+
+if __name__ == "__main__":
+    print("=== Simple Port Scanner ===")
+    ip_address = input("Enter IP address to scan: ")
+
+    for port in range(20, 1025):  # You can increase range if needed
+        scan_port(ip_address, port)
