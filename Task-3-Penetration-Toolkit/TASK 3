@@ -1,19 +1,45 @@
- # Task-3-Penetration-Toolkit/
 import socket
+import time
 
-def scan_port(ip, port):
+def port_scanner():
+    print("\n=== Port Scanner ===")
+    ip_address = input("Enter IP address to scan: ").strip()
     try:
-        sock = socket.socket()
-        sock.settimeout(1)
-        sock.connect((ip, port))
-        print(f"[+] Port {port} is OPEN")
-        sock.close()
-    except:
-        pass
+        for port in range(20, 1025):
+            sock = socket.socket()
+            sock.settimeout(1)
+            result = sock.connect_ex((ip_address, port))
+            if result == 0:
+                print(f"[+] Port {port} is OPEN")
+            sock.close()
+    except Exception as e:
+        print("❌ Error:", e)
+
+def brute_force():
+    print("\n=== Brute Force Simulator ===")
+    password_list = ["123", "admin", "test", "password", "letmein"]
+    real_password = input("Set the correct password for simulation: ").strip()
+
+    for pwd in password_list:
+        print(f"Trying: {pwd}")
+        time.sleep(0.3)
+        if pwd == real_password:
+            print(f"\n✅ Password found: {pwd}")
+            return
+    print("\n❌ Password not found in list.")
+
+def main():
+    print("=== Penetration Testing Toolkit ===")
+    print("1. Port Scanner")
+    print("2. Brute Force Simulator")
+    choice = input("Choose an option (1/2): ")
+
+    if choice == '1':
+        port_scanner()
+    elif choice == '2':
+        brute_force()
+    else:
+        print("❌ Invalid choice.")
 
 if __name__ == "__main__":
-    print("=== Simple Port Scanner ===")
-    ip_address = input("Enter IP address to scan: ")
-
-    for port in range(20, 1025):  # You can increase range if needed
-        scan_port(ip_address, port)
+    main()
